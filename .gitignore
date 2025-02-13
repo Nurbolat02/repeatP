@@ -1,0 +1,6 @@
+gulpfile.js
+src/sass
+*.json
+*.txt
+node_modules/ 
+*.scss
