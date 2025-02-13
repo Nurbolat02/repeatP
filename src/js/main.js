@@ -41,23 +41,26 @@ $(document).ready(function () {
     $("#mybutton").click(function (event) {
         event.preventDefault(); // Останавливаем стандартное поведение кнопки
     });
+    $('ul.catalog__names').on('click', 'li:not(catalog__name_active)', function () {
+        $(this)
+            // находим наш список, по клику на элемент ЛИ не содержащий активный класс, после чего добавляем ему этот самый активный класс, после находим его братьев на одном уровне и убираем у всех класс активности после идем на ближайщий контейнер и от туда ищем все наши обвертки куда спрятаны табы, убирая у всех класс активности и добавляем этот класс тому табу, который имеет такой же индекст, как и элемент ли
+            .addClass('catalog__name_active')
+            .siblings().removeClass('catalog__name_active')
+            .closest('div.container').find('div.catalog__wrapper').removeClass('catalog__wrapper_active')
+            .eq($(this).index()).addClass('catalog__wrapper_active');
+    });
+    function toggleSlide(item) {
+        $(item).each(function (i) {
+            $(this).on('click', function (e) {
+                e.preventDefault();
+                $('.catalog__intro').eq(i).toggleClass('catalog__intro_active');
+                $('.catalog__details').eq(i).toggleClass('catalog__details_active');
+            })
+        });
+    };
+
+    toggleSlide('.catalog__info');
+    toggleSlide('.catalog__back');
 });
 
-// $(document).ready(function () {
-//     function updateDotsStyle() {
-//         if ($(window).width() <= 768) {
-//             $(".slick-slider-dots").css("display", "flex");
-//         } else {
-//             $(".slick-slider-dots").css("display", "");
-//         }
-//     }
-
-//     // Вызываем функцию при загрузке страницы
-//     updateDotsStyle();
-
-//     // Отслеживаем изменение размера окна
-//     $(window).resize(function () {
-//         updateDotsStyle();
-//     });
-// });
 
